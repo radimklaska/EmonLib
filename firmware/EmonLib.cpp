@@ -9,15 +9,7 @@
 //#include "WProgram.h" un-comment for use on older versions of Arduino IDE
 #include "EmonLib.h"
 
-#if defined(ARDUINO) && ARDUINO >= 100
-
-#include "Arduino.h"
-
-#else
-
-#include "WProgram.h"
-
-#endif
+#include "application.h"
 
 //--------------------------------------------------------------------------------------
 // Sets the pins to be used for voltage and current sensors
