@@ -31,14 +31,10 @@ class EnergyMonitor
     void voltage(int _inPinV, double _VCAL, double _PHASECAL);
     void current(int _inPinI, double _ICAL);
 
-    void voltageTX(double _VCAL, double _PHASECAL);
-    void currentTX(int _channel, double _ICAL);
-
     void calcVI(int crossings, unsigned int timeout);
     double calcIrms(int NUMBER_OF_SAMPLES);
     void serialprint();
 
-    long readVcc();
     //Useful value variables
     double realPower,
        apparentPower,
