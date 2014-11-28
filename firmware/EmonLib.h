@@ -11,6 +11,8 @@
 
 #include "application.h"
 
+#include "math.h"
+
 // to enable 12-bit ADC resolution on Arduino Due, 
 // include the following line in main sketch inside setup() function:
 //  analogReadResolution(ADC_BITS);
