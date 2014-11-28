@@ -1,6 +1,6 @@
 {
   "name": "EmonLib",
-  "author": "glynhudson <>",
+  "author": "glynhudson <glyn.hudson@openenergymonitor.org>",
   "license": "MIT",
   "version": "0.0.10",
   "description": "Arduino Energy Monitoring Library - compatible with Arduino 1.0 "
