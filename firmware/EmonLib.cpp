@@ -51,7 +51,7 @@ void EnergyMonitor::currentTX(int _channel, double _ICAL)
 // From a sample window of the mains AC voltage and current.
 // The Sample window length is defined by the number of half wavelengths or crossings we choose to measure.
 //--------------------------------------------------------------------------------------
-void EnergyMonitor::calcVI(int crossings, int timeout)
+void EnergyMonitor::calcVI(int crossings, unsigned int timeout)
 {
    #if defined emonTxV3
 	int SUPPLYVOLTAGE=3300;
