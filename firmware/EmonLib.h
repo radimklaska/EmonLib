@@ -2,8 +2,9 @@
   Emon.h - Library for openenergymonitor
   Created by Trystan Lea, April 27 2010
   GNU GPL
-  modified to use up to 12 bits ADC resolution (ex. Arduino Due)
+  modified to use up to 12 bits ADC resolution (ex. Arduino Due & Spark Core/Photon)
   by boredman@boredomprojects.net 26.12.2013
+  Low Pass filter for offset removal replaces HP filter 1/1/2015 - RW
 */
 
 #ifndef EmonLib_h
