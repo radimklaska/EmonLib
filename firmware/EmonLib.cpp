@@ -38,13 +38,13 @@ void EnergyMonitor::current(unsigned int _inPinI, double _ICAL)
 //--------------------------------------------------------------------------------------
 void EnergyMonitor::calcVI(unsigned int crossings, unsigned int timeout)
 {
-	int SUPPLYVOLTAGE=3300;
+	int SupplyVoltage=3300;
 
   unsigned int crossCount = 0;                             //Used to measure number of times threshold is crossed.
   unsigned int numberOfSamples = 0;                        //This is now incremented  
 
   //-------------------------------------------------------------------------------------------------------------------------
-  // 1) Waits for the waveform to be close to 'zero' (500 adc) part in sin curve.
+  // 1) Waits for the waveform to be close to 'zero' (mid-scale adc) part in sin curve.
   //-------------------------------------------------------------------------------------------------------------------------
   boolean st=false;                                  //an indicator to exit the while loop
 
@@ -124,10 +124,10 @@ void EnergyMonitor::calcVI(unsigned int crossings, unsigned int timeout)
   //Calculation of the root of the mean of the voltage and current squared (rms)
   //Calibration coefficients applied. 
   
-  double V_RATIO = VCAL *((SUPPLYVOLTAGE/1000.0) / (ADC_COUNTS));
+  double V_RATIO = VCAL *((SupplyVoltage/1000.0) / (ADC_COUNTS));
   Vrms = V_RATIO * sqrt(sumV / numberOfSamples); 
   
-  double I_RATIO = ICAL *((SUPPLYVOLTAGE/1000.0) / (ADC_COUNTS));
+  double I_RATIO = ICAL *((SupplyVoltage/1000.0) / (ADC_COUNTS));
   Irms = I_RATIO * sqrt(sumI / numberOfSamples); 
 
   //Calculation power values
