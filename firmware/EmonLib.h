@@ -60,7 +60,9 @@ class EnergyMonitor
 	int lastSampleI,sampleI;                      
 
 	double lastFilteredV,filteredV;                   //Filtered_ is the raw analog value minus the DC offset
-	double lastFilteredI, filteredI;                  
+	double lastFilteredI, filteredI;
+  double offsetV;                          //Low-pass filter output
+  double offsetI;                          //Low-pass filter output               
 
 	double phaseShiftedV;                             //Holds the calibrated phase shifted voltage.
 
