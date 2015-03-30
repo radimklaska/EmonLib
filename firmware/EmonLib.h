@@ -18,7 +18,7 @@
 //  analogReadResolution(ADC_BITS);
 // otherwise will default to 10 bits, as in regular Arduino-based boards.
 
-#define ADC_BITS    10
+#define ADC_BITS    12
 
 
 #define ADC_COUNTS  (1<<ADC_BITS)
