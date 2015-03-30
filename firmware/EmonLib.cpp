@@ -4,9 +4,10 @@
   GNU GPL
   modified to use up to 12 bits ADC resolution (ex. Arduino Due)
   by boredman@boredomprojects.net 26.12.2013
+  Low Pass filter for offset removal replaces HP filter 1/1/2015 - RW
 */
 
-//#include "WProgram.h" un-comment for use on older versions of Arduino IDE
+
 #include "EmonLib.h"
 
 #include "application.h"
