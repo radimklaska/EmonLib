@@ -4,9 +4,10 @@
   GNU GPL
   modified to use up to 12 bits ADC resolution (ex. Arduino Due)
   by boredman@boredomprojects.net 26.12.2013
+  Low Pass filter for offset removal replaces HP filter 1/1/2015 - RW
 */
 
-//#include "WProgram.h" un-comment for use on older versions of Arduino IDE
+
 #include "EmonLib.h"
 
 #include "application.h"
@@ -14,7 +15,7 @@
 //--------------------------------------------------------------------------------------
 // Sets the pins to be used for voltage and current sensors
 //--------------------------------------------------------------------------------------
-void EnergyMonitor::voltage(int _inPinV, double _VCAL, double _PHASECAL)
+void EnergyMonitor::voltage(unsigned int _inPinV, double _VCAL, double _PHASECAL)
 {
    inPinV = _inPinV;
    VCAL = _VCAL;
@@ -22,7 +23,7 @@ void EnergyMonitor::voltage(int _inPinV, double _VCAL, double _PHASECAL)
    offsetV = ADC_COUNTS>>1;
 }
 
-void EnergyMonitor::current(int _inPinI, double _ICAL)
+void EnergyMonitor::current(unsigned int _inPinI, double _ICAL)
 {
    inPinI = _inPinI;
    ICAL = _ICAL;
@@ -31,19 +32,19 @@ void EnergyMonitor::current(int _inPinI, double _ICAL)
 
 //--------------------------------------------------------------------------------------
 // emon_calc procedure
-// Calculates realPower,apparentPower,powerFactor,Vrms,Irms,kwh increment
+// Calculates realPower,apparentPower,powerFactor,Vrms,Irms,kWh increment
 // From a sample window of the mains AC voltage and current.
 // The Sample window length is defined by the number of half wavelengths or crossings we choose to measure.
 //--------------------------------------------------------------------------------------
-void EnergyMonitor::calcVI(int crossings, unsigned int timeout)
+void EnergyMonitor::calcVI(unsigned int crossings, unsigned int timeout)
 {
-	int SUPPLYVOLTAGE=3300;
+	int SupplyVoltage=3300;
 
-  int crossCount = 0;                             //Used to measure number of times threshold is crossed.
-  int numberOfSamples = 0;                        //This is now incremented  
+  unsigned int crossCount = 0;                             //Used to measure number of times threshold is crossed.
+  unsigned int numberOfSamples = 0;                        //This is now incremented  
 
   //-------------------------------------------------------------------------------------------------------------------------
-  // 1) Waits for the waveform to be close to 'zero' (500 adc) part in sin curve.
+  // 1) Waits for the waveform to be close to 'zero' (mid-scale adc) part in sin curve.
   //-------------------------------------------------------------------------------------------------------------------------
   boolean st=false;                                  //an indicator to exit the while loop
 
@@ -57,7 +58,7 @@ void EnergyMonitor::calcVI(int crossings, unsigned int timeout)
   }
   
   //-------------------------------------------------------------------------------------------------------------------------
-  // 2) Main measurment loop
+  // 2) Main measurement loop
   //------------------------------------------------------------------------------------------------------------------------- 
   start = millis(); 
 
@@ -121,12 +122,12 @@ void EnergyMonitor::calcVI(int crossings, unsigned int timeout)
   // 3) Post loop calculations
   //------------------------------------------------------------------------------------------------------------------------- 
   //Calculation of the root of the mean of the voltage and current squared (rms)
-  //Calibration coeficients applied. 
+  //Calibration coefficients applied. 
   
-  double V_RATIO = VCAL *((SUPPLYVOLTAGE/1000.0) / (ADC_COUNTS));
+  double V_RATIO = VCAL *((SupplyVoltage/1000.0) / (ADC_COUNTS));
   Vrms = V_RATIO * sqrt(sumV / numberOfSamples); 
   
-  double I_RATIO = ICAL *((SUPPLYVOLTAGE/1000.0) / (ADC_COUNTS));
+  double I_RATIO = ICAL *((SupplyVoltage/1000.0) / (ADC_COUNTS));
   Irms = I_RATIO * sqrt(sumI / numberOfSamples); 
 
   //Calculation power values
@@ -187,4 +188,3 @@ void EnergyMonitor::serialprint()
     Serial.println(' ');
     delay(100); 
 }
-
